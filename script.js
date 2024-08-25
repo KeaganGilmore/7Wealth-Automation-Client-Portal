@@ -1,4 +1,4 @@
-var BASE_URL = 'http://192.168.0.135:7237';
+var BASE_URL = 'https://0e86-41-114-29-118.ngrok-free.app';
 
 document.addEventListener('DOMContentLoaded', function () {
     if (checkAuth()) {
