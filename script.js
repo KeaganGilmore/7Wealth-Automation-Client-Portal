@@ -103,7 +103,18 @@ function fetchUsers() {
         return;
     }
 
-    fetch(`${BASE_URL}/users?advisor_id=${advisorId}`)
+    // Construct the body of the POST request
+    const requestBody = {
+        advisor_id: advisorId
+    };
+
+    fetch(`${BASE_URL}/users`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch users');
@@ -118,6 +129,7 @@ function fetchUsers() {
             console.error('Error fetching users:', error);
         });
 }
+
 
 function displayUsers(users) {
     const userList = document.getElementById('userList');
