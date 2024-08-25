@@ -95,10 +95,10 @@ function checkAuth() {
 
 function fetchUsers() {
     const advisorId = localStorage.getItem('advisorId');
-    console.log('Retrieved advisorId:', advisorId);
+    console.log('Retrieved advisorId from localStorage:', advisorId);
 
     if (!advisorId) {
-        console.error('Advisor ID not found');
+        console.error('Advisor ID not found. Redirecting to login page.');
         window.location.href = 'login.html';
         return;
     }
@@ -108,6 +108,8 @@ function fetchUsers() {
         advisor_id: advisorId
     };
 
+    console.log('Prepared request body for POST request:', JSON.stringify(requestBody, null, 2));
+
     fetch(`${BASE_URL}/users`, {
         method: 'POST',
         headers: {
@@ -115,20 +117,22 @@ function fetchUsers() {
         },
         body: JSON.stringify(requestBody)
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch users');
-            }
-            return response.json();
-        })
-        .then(users => {
-            console.log('Fetched users:', users);
-            displayUsers(users);
-        })
-        .catch(error => {
-            console.error('Error fetching users:', error);
-        });
+    .then(response => {
+        console.log('Received response status:', response.status);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch users. Status: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(users => {
+        console.log('Parsed response JSON:', JSON.stringify(users, null, 2));
+        displayUsers(users);
+    })
+    .catch(error => {
+        console.error('Error occurred during fetch operation:', error);
+    });
 }
+
 
 
 function displayUsers(users) {
