@@ -1,4 +1,4 @@
-var BASE_URL = 'https://652a-41-114-29-118.ngrok-free.app';
+var BASE_URL = 'https://7a4a-41-114-29-118.ngrok-free.app';
 
 document.addEventListener('DOMContentLoaded', function () {
     if (checkAuth()) {
